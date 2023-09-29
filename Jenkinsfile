@@ -5,8 +5,8 @@ pipeline{
     stages {
         stage('init') {
             steps {
-                sh 'docker stop nodejs-project || true'
-                sh 'docker rm nodejs-project || true'
+                sh 'sudo docker stop nodejs-project || true'
+                sh 'sudo docker rm nodejs-project || true'
             }
         }
         stage('build') {
