@@ -1,6 +1,6 @@
 FROM node:latest
 WORKDIR /app
 COPY . .
-RUN npn install 
+RUN npm install 
 EXPOSE 5000
 ENTRYPOINT ["npn", "start"]
