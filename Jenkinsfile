@@ -13,7 +13,7 @@ pipeline{
             //     sh 'docker stop nodejs-project || true'
             //     sh 'docker rm nodejs-project || true'
             //     sh 'docker rm mynginx || true'
-            // }
+            }
         }
         stage('build') {
             steps {
