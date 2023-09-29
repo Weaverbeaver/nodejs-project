@@ -10,24 +10,31 @@ pipeline{
         stage('init') {
             steps {
                 sh 'docker rm -f $(docker ps -aq) || true'
-                sh 'docker stop nodejs-project || true'
-                sh 'docker rm nodejs-project || true'
-                sh 'docker rm mynginx || true'
-            }
+            //     sh 'docker stop nodejs-project || true'
+            //     sh 'docker rm nodejs-project || true'
+            //     sh 'docker rm mynginx || true'
+            // }
         }
         stage('build') {
             steps {
                 // sh 'docker build -t nodejs-project:${BUILD_NUMBER} .'
-                sh 'docker run -d -p 80:80 --name mynginx nginx:latest || true'
-                sh "docker exec mynginx sh -c 'echo \"hello jenkins! ${SECRET_VAR}\" > /usr/share/nginx/html/index.html'"
+                // sh 'docker run -d -p 80:80 --name mynginx nginx:latest || true'
+                // sh "docker exec mynginx sh -c 'echo \"hello jenkins! ${SECRET_VAR}\" > /usr/share/nginx/html/index.html'"
+                sh 'chmod +x deploy.sh'
+                sh './deploy.sh'
             }
         }
         stage ('run') {
             steps {
-                sh 'echo \$DOCKERHUB_CREDENTIALS_PSW | docker login -u \$DOCKERHUB_CREDENTIALS_USR --password-stdin'
-                sh 'docker tag nginx weaerbeaver/mynginx1:latest'
-                sh 'docker push weaerbeaver/mynginx1:latest'
+                // sh 'echo \$DOCKERHUB_CREDENTIALS_PSW | docker login -u \$DOCKERHUB_CREDENTIALS_USR --password-stdin'
+                // sh 'docker tag nginx weaerbeaver/mynginx1:latest'
+                // sh 'docker push weaerbeaver/mynginx1:latest'
                 // sh 'docker run -p 80:5000 --name nodejs-project -d nodejs-project:${BUILD_NUMBER}'
+                sh "echo |$DOCKERHUB_CREDENTIALS_PSW | docker login -u |$DOCKERHUB_CREDENTIALS_USR --password-stdin"
+                sh "docker tag trio-task-mysql:5.7 weaerbeaver/mytriotasksql1:latest"
+                sh "docker tag trio-task-flask-app weaerbeaver/mytriotaskflask1:latest"
+                sh "docker push weaerbeaver/mytriotasksql1:latest"
+                sh "docker push weaerbeaver/mytriotaskflask1:latest"
             }
         }
     }
