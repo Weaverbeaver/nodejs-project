@@ -17,7 +17,7 @@ pipeline{
             steps {
                 sh '#sudo docker build -t nodejs-project:${BUILD_NUMBER} .'
                 sh 'sudo docker run -d -p 80:80 --name mynginx nginx:latest'
-                sh "sudo docker exec mnginx sh -c 'echo \"hello jenkins! ${SECRET_VAR}\" > /user/share/nginx/html/index.html'"
+                sh "sudo docker exec nginx sh -c 'echo \"hello jenkins! ${SECRET_VAR}\" > /user/share/nginx/html/index.html'"
             }
         }
         stage ('run') {
