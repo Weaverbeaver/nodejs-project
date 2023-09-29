@@ -14,7 +14,7 @@ pipeline{
         }
         stage ('run') {
             steps {
-                sh 'docker run -p 80:5000 --name nodejs-project -d nodejs-project:${BUILDNUMBER}'
+                sh 'docker run -p 80:5000 --name nodejs-project -d nodejs-project:${BUILD_NUMBER}'
             }
         }
     }
