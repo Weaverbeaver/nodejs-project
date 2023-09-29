@@ -23,7 +23,10 @@ pipeline{
         }
         stage ('run') {
             steps {
-                sh 'sudo docker run -p 80:5000 --name nodejs-project -d nodejs-project:${BUILD_NUMBER}'
+                sh 'echo \$DOCKERHUB_CREDENTIALS_PSW | docker login -u \$DOCKERHUB_CREDENTIALS_USR --password-stdin'
+                sh 'sudo docker tag nginx weaerbeaver/mynginx1:latest'
+                sh 'sudo docker push weaerbeaver/mynginx1:latest'
+                sh '#sudo docker run -p 80:5000 --name nodejs-project -d nodejs-project:${BUILD_NUMBER}'
             }
         }
     }
