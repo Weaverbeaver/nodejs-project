@@ -1,7 +1,9 @@
 pipeline{
-    agent any
-    stages{
-        stage('init'){
+    agent {
+        label "agent"
+    }
+    stages {
+        stage('init') {
             steps {
                 sh 'docker stop nodejs-project || true'
                 sh 'docker rm nodejs-project || true'
