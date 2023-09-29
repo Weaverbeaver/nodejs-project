@@ -17,7 +17,7 @@ pipeline{
         }
         stage('build') {
             steps {
-                sh '#docker build -t nodejs-project:${BUILD_NUMBER} .'
+                // sh 'docker build -t nodejs-project:${BUILD_NUMBER} .'
                 sh 'docker run -d -p 80:80 --name mynginx nginx:latest || true'
                 sh "docker exec mynginx sh -c 'echo \"hello jenkins! ${SECRET_VAR}\" > /usr/share/nginx/html/index.html'"
             }
@@ -27,7 +27,7 @@ pipeline{
                 sh 'echo \$DOCKERHUB_CREDENTIALS_PSW | docker login -u \$DOCKERHUB_CREDENTIALS_USR --password-stdin'
                 sh 'docker tag nginx weaerbeaver/mynginx1:latest'
                 sh 'docker push weaerbeaver/mynginx1:latest'
-                sh '#docker run -p 80:5000 --name nodejs-project -d nodejs-project:${BUILD_NUMBER}'
+                // sh 'docker run -p 80:5000 --name nodejs-project -d nodejs-project:${BUILD_NUMBER}'
             }
         }
     }
