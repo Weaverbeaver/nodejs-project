@@ -4,6 +4,7 @@ pipeline{
     }
     environment{
         SECRET_VAR = credentials('secret_text')
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub')
     }
     stages {
         stage('init') {
