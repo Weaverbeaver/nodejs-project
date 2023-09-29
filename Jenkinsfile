@@ -11,6 +11,7 @@ pipeline{
                 sh 'sudo docker rm -f $(docker ps -aq) || true'
                 sh 'sudo docker stop nodejs-project || true'
                 sh 'sudo docker rm nodejs-project || true'
+                sh 'sudo docker rm mynginx || true'
             }
         }
         stage('build') {
